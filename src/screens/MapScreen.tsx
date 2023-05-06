@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Modal, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Modal, FlatList, Image } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import * as Location from 'expo-location';
+// import busIcon from '';
 
-const GOOGLE_MAPS_API_KEY = "AIzaSyBdNv7u3xt-e13L1a_0aSUsJsnw2Bd7qTk";
+const GOOGLE_MAPS_API_KEY = "";
 
 interface CoordinateResponse {
   id: number, 
@@ -100,24 +101,25 @@ const dados = [
     coords: [
       { latitude: -23.8348, longitude: -46.7043},
       { latitude: -23.7036, longitude: -46.6985},
-      { latitude: -23.7103, longitude: -46.7715},
-      { latitude: -24.0487, longitude: -46.6866},
-      { latitude: -23.7755, longitude: -46.6755}
+      { latitude: -23.6317, longitude: -46.6965 },
+      { latitude: -23.6705, longitude: -46.6561},
+      // { latitude: -23.7103, longitude: -46.7715},
+      // { latitude: -24.0487, longitude: -46.6866},
     ]
   },
   {
     id: 3, 
     name: 'Linha 3', 
     coords: [
-      { latitude: -23.5881, longitude: -46.6326},
       { latitude: -23.5928, longitude: -46.6067},
-      { latitude: -23.6329, longitude: -46.7619},
+      { latitude: -23.5881, longitude: -46.6326},
       { latitude: -23.6532, longitude: -46.7108},
-      { latitude: -23.6529, longitude: -46.6419},
+      { latitude: -23.6329, longitude: -46.7619},
       { latitude: -23.6634, longitude: -46.7563},
       { latitude: -23.7368, longitude: -46.7096},
-      { latitude: -23.6705, longitude: -46.6561},
-      { latitude: -23.8348, longitude: -46.7043}
+      // { latitude: -23.8348, longitude: -46.7043},
+      // { latitude: -23.6705, longitude: -46.6561},
+      // { latitude: -23.6529, longitude: -46.6419},
     ]
   }
 ];
@@ -207,7 +209,7 @@ const MapScreen = () => {
             waypoints={coordinates.slice(1, -1)}
             apikey={GOOGLE_MAPS_API_KEY}
             strokeWidth={3}
-            strokeColor="hotpink"
+            strokeColor="black"
           />
         )}
         {coordinates.map((coordinate, index) => (
@@ -215,13 +217,14 @@ const MapScreen = () => {
             key={`marker-${index}`}
             coordinate={coordinate}
             title={`Marker ${index + 1}`}
+            image={require('../assets/images/bus.png')}
           />
         ))}
         {location && (
           <Marker
             coordinate={location}
             title="Você está aqui"
-            pinColor="blue"
+            pinColor="orange"
           />
         )}
       </MapView>
