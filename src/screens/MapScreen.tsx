@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
+import * as Location from 'expo-location';
 
-const GOOGLE_MAPS_API_KEY = "<sua chave aqui>";
+const GOOGLE_MAPS_API_KEY = "";
 
 interface Coordinate {
   latitude: number;
@@ -25,12 +26,39 @@ const styles = StyleSheet.create({
 
 const MapScreen = () => {
   const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
+  const [location, setLocation] = useState<Coordinate>();
+
+  async function getLocation(){
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    const location = await Location.getCurrentPositionAsync({});
+    
+    if (status !== 'granted') {
+      console.log('Permission to access location was denied');
+      return;
+    }
+
+    setLocation({
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+    });
+  }
+
+  //TODO
+  //fazer uma barra de pesquisa
+  //quando for selecionado
+  //fazer um push na coordinates
+  //toda vez que atualiazar o valor
+  //alterar o index 1 do array
+  //o maximo de items são dois 
 
   useEffect(() => {
+
+    getLocation();
+
     setCoordinates([
       {
-        latitude: -23.7837843,
-        longitude: -46.6879467,
+        latitude: location!.latitude,
+        longitude: location!.longitude,
       },
       {
         latitude: -23.7928256,
