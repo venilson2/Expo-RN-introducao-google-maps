@@ -48,8 +48,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 10,
-    borderBottomWidth: 0.5,
+    width: '50%'
+  },
+  listContainer: {
+    width: '100%',
+    height: '100%',
+  },
+  listItemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+    borderBottomWidth: 1,
     borderBottomColor: '#ccc',
+  },
+  badge: {
+    backgroundColor: 'green',
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+  },
+  badgeText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
 
@@ -88,12 +109,17 @@ const MapScreen = () => {
 
   const renderListItem = ({ item } : { item: CoordinateResponse }) => {
     return (
-      <TouchableOpacity onPress={() => {
-        setSelectedValue(item.name);
-        setCoordinates(item.coords);
-        setModalVisible(false);
-      }}>
+      <TouchableOpacity 
+        style={styles.listItemContainer}
+        onPress={() => {
+          setSelectedValue(item.name);
+          setCoordinates(item.coords);
+          setModalVisible(false);
+        }}>
         <View style={styles.listItem}>
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>Entrada</Text>
+          </View>
           <Text style={styles.listItemText}>{item.name}</Text>
         </View>
       </TouchableOpacity>
@@ -111,7 +137,7 @@ const MapScreen = () => {
         setModalVisible={setModalVisible}
       >
         <FlatList
-          style={styles.flatList}
+          style={styles.listContainer}
           data={data}
           renderItem={renderListItem}
           keyExtractor={(item) => item.id.toString()}

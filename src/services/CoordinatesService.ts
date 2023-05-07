@@ -55,7 +55,7 @@ export function listCoordinates() {
         {
           id: 5, 
           name: 'Linha 3', 
-          status: 'emtrada',
+          status: 'entrada',
           coords: [
             { latitude: -23.5928, longitude: -46.6067},
             { latitude: -23.5881, longitude: -46.6326},
@@ -77,7 +77,85 @@ export function listCoordinates() {
             { latitude: -23.5881, longitude: -46.6326},
             { latitude: -23.5928, longitude: -46.6067},
           ]
-        }
+        },
+        {
+            id: 7, 
+            name: 'Linha 4', 
+            status: 'entrada',
+            coords: [
+              { latitude: -23.5928, longitude: -46.6067},
+              { latitude: -23.5881, longitude: -46.6326},
+              { latitude: -23.6532, longitude: -46.7108},
+              { latitude: -23.6329, longitude: -46.7619},
+              { latitude: -23.6634, longitude: -46.7563},
+              { latitude: -23.7368, longitude: -46.7096},
+            ]
+          },
+          {
+            id: 8, 
+            name: 'Linha 4', 
+            status: 'saída',
+            coords: [
+              { latitude: -23.7368, longitude: -46.7096},
+              { latitude: -23.6634, longitude: -46.7563},
+              { latitude: -23.6329, longitude: -46.7619},
+              { latitude: -23.6532, longitude: -46.7108},
+              { latitude: -23.5881, longitude: -46.6326},
+              { latitude: -23.5928, longitude: -46.6067},
+            ]
+          },
+          {
+            id: 9, 
+            name: 'Linha 5', 
+            status: 'entrada',
+            coords: [
+              { latitude: -23.5928, longitude: -46.6067},
+              { latitude: -23.5881, longitude: -46.6326},
+              { latitude: -23.6532, longitude: -46.7108},
+              { latitude: -23.6329, longitude: -46.7619},
+              { latitude: -23.6634, longitude: -46.7563},
+              { latitude: -23.7368, longitude: -46.7096},
+            ]
+          },
+          {
+            id: 10, 
+            name: 'Linha 5', 
+            status: 'saída',
+            coords: [
+              { latitude: -23.7368, longitude: -46.7096},
+              { latitude: -23.6634, longitude: -46.7563},
+              { latitude: -23.6329, longitude: -46.7619},
+              { latitude: -23.6532, longitude: -46.7108},
+              { latitude: -23.5881, longitude: -46.6326},
+              { latitude: -23.5928, longitude: -46.6067},
+            ]
+          },
+          {
+            id: 11, 
+            name: 'Linha 6', 
+            status: 'entrada',
+            coords: [
+              { latitude: -23.5928, longitude: -46.6067},
+              { latitude: -23.5881, longitude: -46.6326},
+              { latitude: -23.6532, longitude: -46.7108},
+              { latitude: -23.6329, longitude: -46.7619},
+              { latitude: -23.6634, longitude: -46.7563},
+              { latitude: -23.7368, longitude: -46.7096},
+            ]
+          },
+          {
+            id: 12, 
+            name: 'Linha 6', 
+            status: 'saída',
+            coords: [
+              { latitude: -23.7368, longitude: -46.7096},
+              { latitude: -23.6634, longitude: -46.7563},
+              { latitude: -23.6329, longitude: -46.7619},
+              { latitude: -23.6532, longitude: -46.7108},
+              { latitude: -23.5881, longitude: -46.6326},
+              { latitude: -23.5928, longitude: -46.6067},
+            ]
+          },
     ];
 
 

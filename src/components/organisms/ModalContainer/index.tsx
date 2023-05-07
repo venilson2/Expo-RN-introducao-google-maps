@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Modal, Image } from 'react-native';
+import Button from '../../atoms/Button';
 
 interface ModalContainer {
     modalVisible: boolean,
@@ -18,28 +19,25 @@ export default function ModalContainer({modalVisible, setModalVisible, children}
           padding: 10,
           flex: 1
         },
-        closeButtonContainer: {
-          position: 'absolute',
-          top: 10,
-          right: 10
+        buttonContainer: {
+          marginTop: 20,
+          paddingHorizontal: 16,
+          paddingVertical: 8,
+          borderRadius: 10,
         },
-        closeButton: {
-          width: 24,
-          height: 24
-        }
       });
 
     return (
       <Modal 
-          visible={modalVisible} 
-          animationType="slide"
-          style={styles.modal}
+        visible={modalVisible} 
+        animationType="slide"
+        style={styles.modal}
       >
         <View style={styles.modalContainer}>
-          <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButtonContainer} >
-              <Image source={require('../../../assets/images/close.png')} style={styles.closeButton} />
-          </TouchableOpacity>
           {children}
+          <View style={styles.buttonContainer}>
+            <Button onPress={() => setModalVisible(false)} title='Fechar' />
+          </View>
         </View>
       </Modal>
     );

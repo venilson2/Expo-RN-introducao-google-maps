@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, } from 'react-native';
 
-interface DropDownContainer {
+interface DropDownContainerProps {
     setModalVisible: (item: boolean) => void,
     selectedValue: string | null
 }
 
-export default function DropDownContainer({selectedValue, setModalVisible}: DropDownContainer){
+export default function DropDownContainer({selectedValue, setModalVisible}: DropDownContainerProps){
 
     const styles = StyleSheet.create({
         dropdownContainer: {
@@ -22,6 +22,15 @@ export default function DropDownContainer({selectedValue, setModalVisible}: Drop
           shadowRadius: 1,
           elevation: 24,
         },
+        dropdownButton: {
+          backgroundColor: '#FFF',
+          padding: 10,
+          borderRadius: 10,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderWidth: 2,
+          borderColor: '#DDD',
+        },
         dropdownText: {
           fontSize: 16,
           color: '#333',
@@ -31,10 +40,10 @@ export default function DropDownContainer({selectedValue, setModalVisible}: Drop
     return (
         <View style={styles.dropdownContainer}>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <View style={{ backgroundColor: 'white', padding: 10 }}>
+          <View style={styles.dropdownButton}>
             <Text style={styles.dropdownText} >{selectedValue ? selectedValue : 'Selecione a linha desejada'}</Text>
           </View>
         </TouchableOpacity> 
       </View>    
     );   
-}
+} 
