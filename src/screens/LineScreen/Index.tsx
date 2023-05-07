@@ -22,7 +22,7 @@ export default function LineScreen() {
 
   const renderListItem = ({ item }: { item: CoordinateResponse }) => {
 
-  const statusColor = item?.status === 'entrada' ? theme.colors.primary_700 : theme.colors.secondary_100;
+  const statusColor = item?.status === 'entrada' ? theme.colors.primary_200 : theme.colors.secondary_100;
 
     return (
       <ListItemContainer
@@ -50,7 +50,7 @@ export default function LineScreen() {
             keyExtractor={(item) => item.id.toString()}
           />
         <ButtonContainer>
-          <Button onPress={() => navigation.goBack() } title='Voltar' />
+          <Button onPress={() => navigation.goBack() } title='Voltar' style={{ backgroundColor: theme.colors.primary_700 }} />
         </ButtonContainer>
       </Container>
   );

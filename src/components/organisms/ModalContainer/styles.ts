@@ -4,7 +4,7 @@ import Button from '../../atoms/Button';
 export const Container = styled.View`
   border-radius: 20px;
   height: 40%;
-  background-color: #ccc;
+  background-color: ${({theme}) => theme.colors.neutral_100};
   color: white;
   justify-content: flex-end;
   position: absolute;
@@ -31,6 +31,7 @@ export const IconContainer = styled.View`
 export const Plate = styled.Text`
   font-size: 16px;
   font-weight: bold;
+  color: ${({theme}) => theme.colors.neutral_700};
 `;
 
 export const PlateContainer = styled.View`
@@ -41,11 +42,12 @@ export const PlateContainer = styled.View`
 
 export const Info = styled.Text`
   font-size: 10px;
+  color: ${({theme}) => theme.colors.neutral_700};
 `;
 
 export const InfoHour = styled.Text`
   font-size: 10px;
-  color: white;
+  color: ${({theme}) => theme.colors.neutral_100};
 `;
 
 export const AddressContainer = styled.View`
@@ -61,25 +63,28 @@ export const AddressInfo = styled.View`
 export const AddressText = styled.Text`
   font-size: 14px;
   font-weight: bold;
+  color: ${({theme}) => theme.colors.neutral_700};
 `;
 
 export const Strong = styled.Text`
   font-size: 12px;
   font-weight: bold;
+  color: ${({theme}) => theme.colors.secondary_400};
 `;
 
 export const Badge = styled.View`
-    background-color: green;
+    background-color: ${({theme}) => theme.colors.success};
     border-radius: 8px;
     padding: 6px 12px;
     `;
     
 export const BadgeText = styled.Text`
-  color: white;
+  color: ${({theme}) => theme.colors.neutral_100};
   font-weight: bold;
   font-size: 16px;
 `;
 
 export const SmallInfo = styled.Text`
   font-size: 8px;
+  color: ${({theme}) => theme.colors.secondary_100};
 `;

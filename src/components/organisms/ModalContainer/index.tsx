@@ -19,6 +19,7 @@ import {
 import Modal from 'react-native-modal';
 import Coordinate from '../../../interfaces/Coordinate';
 import { Image } from 'react-native';
+import { theme } from '../../../styles';
 
 interface ModalContainerProps {
   modalVisible: boolean;
@@ -50,8 +51,8 @@ const ModalContainer = ({ modalVisible, setModalVisible, coordinate }: ModalCont
         <Info>Chegar em: <Strong>3</Strong> min</Info>
           <SmallInfo>Atualizado em: 07/05/2023 às 14:30</SmallInfo>
         <ButtonContainer>
-          <StyledButton onPress={() => setModalVisible(false)} title="Confirmar Embarque" />
-          <StyledButton onPress={() => setModalVisible(false)} title="Fechar" />
+          <StyledButton onPress={() => setModalVisible(false)} title="Confirmar Embarque" style={{ backgroundColor: theme.colors.primary_600 }} />
+          <StyledButton onPress={() => setModalVisible(false)} title="Fechar" style={{ backgroundColor: theme.colors.secondary_200 }} />
         </ButtonContainer>
       </Container>
     </Modal>

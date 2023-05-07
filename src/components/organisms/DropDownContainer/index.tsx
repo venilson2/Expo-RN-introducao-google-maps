@@ -10,7 +10,7 @@ interface DropDownContainerProps {
 
 export default function DropDownContainer({selectedValue,  onPress}: DropDownContainerProps){
 
-  const statusColor = selectedValue?.status === 'entrada' ? theme.colors.primary_700 : theme.colors.secondary_100;
+  const statusColor = selectedValue?.status === 'entrada' ? theme.colors.primary_200 : theme.colors.secondary_100;
 
   return (
     <>

@@ -26,7 +26,7 @@ export const ButtonText = styled.Text`
 `;
 
 export const ButtonSelected = styled.TouchableOpacity`
-  background-color: #106093;
+  background-color: ${({theme}) => theme.colors.primary_600};;
   padding: 10px;
   border-radius: 10px;
   flex-direction: row;
