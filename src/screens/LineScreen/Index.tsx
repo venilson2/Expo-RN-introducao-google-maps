@@ -7,6 +7,7 @@ import TextHeader from '../../components/organisms/TextHeader';
 import { Badge, BadgeText, ButtonContainer, Container, FlatListContainer, ListItem, ListItemContainer, ListItemText } from './styles';
 import { useCoordinatesContext } from '../../context/CoordinatesContext';
 import CoordinateResponse from '../../interfaces/CoordinateResponse';
+import { theme } from '../../styles';
 
 interface ModalContainerProps {
   modalVisible: boolean,
@@ -21,6 +22,8 @@ export default function LineScreen() {
 
   const renderListItem = ({ item }: { item: CoordinateResponse }) => {
 
+  const statusColor = item?.status === 'entrada' ? theme.colors.primary_700 : theme.colors.secondary_100;
+
     return (
       <ListItemContainer
         onPress={() => {
@@ -29,7 +32,7 @@ export default function LineScreen() {
           navigation.goBack();
         }}>
         <ListItem>
-          <Badge>
+          <Badge style={{backgroundColor: statusColor }}> 
             <BadgeText>{item.status}</BadgeText>
           </Badge>
           <ListItemText>{item.name}</ListItemText>
