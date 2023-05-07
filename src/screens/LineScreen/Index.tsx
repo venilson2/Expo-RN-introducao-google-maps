@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, FlatList, TouchableOpacity, Text } from 'react-native';
+import { FlatList } from 'react-native';
 import Button from '../../components/atoms/Button';
 import { listCoordinates } from '../../services/CoordinatesService';
 import { useNavigation } from '@react-navigation/native';
 import TextHeader from '../../components/organisms/TextHeader';
+import { Badge, BadgeText, ButtonContainer, Container, FlatListContainer, ListItem, ListItemContainer, ListItemText } from './styles';
+import { useCoordinatesContext } from '../../context/CoordinatesContext';
 
 interface ModalContainerProps {
   modalVisible: boolean,
@@ -24,96 +26,40 @@ interface Coordinate {
 }
 
 export default function LineScreen() {
-
   const data = listCoordinates();
   const navigation = useNavigation();
-
-  const styles = StyleSheet.create({
-    container: {
-      paddingVertical: 10,
-      paddingHorizontal: 24,
-      flex: 1,
-    },
-    buttonContainer: {
-      marginTop: 20,
-      paddingHorizontal: 16,
-      paddingVertical: 8,
-      borderRadius: 10,
-    },
-    flatList: {
-      width: '100%',
-      borderRadius: 10,
-      marginTop: 20,
-      height: "100%"
-    },
-    listItemText: {
-      fontSize: 16,
-      color: '#333',
-    },
-    listItem: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      paddingHorizontal: 20,
-      paddingVertical: 10,
-      width: '50%'
-    },
-    listContainer: {
-      width: '100%',
-      height: '100%',
-    },
-    listItemContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      paddingVertical: 10,
-      borderBottomWidth: 1,
-      borderBottomColor: '#ccc',
-    },
-    badge: {
-      backgroundColor: 'green',
-      borderRadius: 8,
-      paddingHorizontal: 8,
-      paddingVertical: 4,
-    },
-    badgeText: {
-      color: 'white',
-      fontWeight: 'bold',
-    },
-  });
+  const { setCoordinates, setSelectedValue } = useCoordinatesContext();
 
   const renderListItem = ({ item }: { item: CoordinateResponse }) => {
 
     return (
-      <TouchableOpacity
-        style={styles.listItemContainer}
+      <ListItemContainer
         onPress={() => {
-          // setSelectedValue(item.name);
-          // setCoordinates(item.coords);
-          // setModalVisible(false);
+          setSelectedValue(item.name);
+          setCoordinates(item.coords);
+          navigation.goBack();
         }}>
-        <View style={styles.listItem}>
-          <View style={styles.badge}>
-            <Text style={styles.badgeText}>Entrada</Text>
-          </View>
-          <Text style={styles.listItemText}>{item.name}</Text>
-        </View>
-      </TouchableOpacity>
+        <ListItem>
+          <Badge>
+            <BadgeText>Entrada</BadgeText>
+          </Badge>
+          <ListItemText>{item.name}</ListItemText>
+        </ListItem>
+      </ListItemContainer>
     );
   };
 
   return (
-      <View style={styles.container}>
+      <Container>
         <TextHeader label={'Linhas/Rotas'} onPress={() => navigation.goBack()}/>
-        <FlatList
-          style={styles.listContainer}
-          data={data}
-          renderItem={renderListItem}
-          keyExtractor={(item) => item.id.toString()}
-        />
-        <View style={styles.buttonContainer}>
+          <FlatList
+            data={data}
+            renderItem={renderListItem}
+            keyExtractor={(item) => item.id.toString()}
+          />
+        <ButtonContainer>
           <Button onPress={() => navigation.goBack() } title='Voltar' />
-        </View>
-      </View>
+        </ButtonContainer>
+      </Container>
   );
 }
