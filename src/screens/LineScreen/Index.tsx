@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import TextHeader from '../../components/organisms/TextHeader';
 import { Badge, BadgeText, ButtonContainer, Container, FlatListContainer, ListItem, ListItemContainer, ListItemText } from './styles';
 import { useCoordinatesContext } from '../../context/CoordinatesContext';
+import CoordinateResponse from '../../interfaces/CoordinateResponse';
 
 interface ModalContainerProps {
   modalVisible: boolean,
@@ -13,29 +14,17 @@ interface ModalContainerProps {
   children?: React.ReactNode;
 }
 
-interface CoordinateResponse {
-  id: number,
-  name: string,
-  status: string,
-  coords: Coordinate[]
-}
-
-interface Coordinate {
-  latitude: number;
-  longitude: number;
-}
-
 export default function LineScreen() {
   const data = listCoordinates();
   const navigation = useNavigation();
-  const { setCoordinates, setSelectedValue } = useCoordinatesContext();
+  const { setCoordinates, setSelectedLine } = useCoordinatesContext();
 
   const renderListItem = ({ item }: { item: CoordinateResponse }) => {
 
     return (
       <ListItemContainer
         onPress={() => {
-          setSelectedValue(item.name);
+          setSelectedLine(item);
           setCoordinates(item.coords);
           navigation.goBack();
         }}>

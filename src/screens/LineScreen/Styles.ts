@@ -39,13 +39,13 @@ export const ListContainer = styled.View`
   `;
 
 export const ListItemContainer = styled.TouchableOpacity`
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding-vertical: 10px;
-    border-bottom-width: 1px;
-    border-bottom-color: #ccc;
-  `;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-vertical: 10px;
+  border-bottom-width: 1px;
+  border-bottom-color: #ccc;
+`;
 
 export const Badge = styled.View`
     background-color: green;
@@ -54,7 +54,7 @@ export const Badge = styled.View`
     padding-vertical: 4px;
   `;
 
-  export const BadgeText = styled.Text`
-    color: white;
-    font-weight: bold;
-  `;
+export const BadgeText = styled.Text`
+  color: white;
+  font-weight: bold;
+`;

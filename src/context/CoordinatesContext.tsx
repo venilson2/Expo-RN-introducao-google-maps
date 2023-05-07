@@ -1,36 +1,33 @@
 import React from 'react';
+import Coordinate from '../interfaces/Coordinate';
+import CoordinateResponse from '../interfaces/CoordinateResponse';
 
 interface CoordinateContextData {
-  setSelectedValue: (value: string) => void;
+  setSelectedLine: (value: CoordinateResponse) => void;
   setCoordinates: (coords: Coordinate[]) => void;
-  selectedValue: string | null;
+  selectedLine: CoordinateResponse | null;
   coordinates: Coordinate[]
 }
 
-interface Coordinate {
-  latitude: number;
-  longitude: number;
-}
-
 const CoordinatesContext = React.createContext<CoordinateContextData>({
-  setSelectedValue: () => {},
+  setSelectedLine: () => {},
   setCoordinates: () => {},
-  selectedValue: '',
+  selectedLine: null,
   coordinates: []
 });
 
 export function CoordinatesProvider({ children }: { children: React.ReactNode }) {
-  const [selectedValue, setSelectedValue] = React.useState<string | null>(null);
+  const [selectedLine, setSelectedLine] = React.useState<CoordinateResponse | null>(null);
   const [coordinates, setCoordinates] = React.useState<Coordinate[]>([]);
 
   const contextValue = React.useMemo(() => {
     return {
-      setSelectedValue,
+      setSelectedLine,
       setCoordinates,
-      selectedValue,
+      selectedLine,
       coordinates
     };
-  }, [setSelectedValue, setCoordinates, coordinates, selectedValue]);
+  }, [setSelectedLine, setCoordinates, coordinates, selectedLine]);
 
   return <CoordinatesContext.Provider value={contextValue}>{children}</CoordinatesContext.Provider>;
 }

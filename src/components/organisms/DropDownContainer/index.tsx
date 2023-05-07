@@ -1,24 +1,48 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Button, ButtonText, Container } from './styles';
+import { Badge, BadgeText, Button, ButtonSelected, ButtonText, Card, Container, LineText, SmallText, TopText } from './styles';
+import CoordinateResponse from '../../../interfaces/CoordinateResponse';
 
 interface DropDownContainerProps {
-    selectedValue: string | null,
+    selectedValue: CoordinateResponse | null,
     onPress: () => void
 }
 
 export default function DropDownContainer({selectedValue,  onPress}: DropDownContainerProps){
 
-  const navigation = useNavigation();
-
-      return (
-        <Container>
-          <Button onPress={onPress}>
-            <ButtonText>
-              {selectedValue ? selectedValue : 'Selecione a linha desejada'}
-            </ButtonText>
-          </Button>
-        </Container>
-      );
-         
+  return (
+    <>
+      {
+        selectedValue ? (
+          <Container>
+            <ButtonSelected onPress={onPress}>
+              <Card>
+                <TopText>
+                  Teste
+                </TopText>
+                <LineText>
+                  {selectedValue.name}
+                </LineText>
+                <SmallText>
+                  Clique novamente para alterar
+                </SmallText>
+              </Card>
+              <Badge>
+                <BadgeText>
+                  {selectedValue.status}
+                </BadgeText>
+              </Badge>
+            </ButtonSelected>
+          </Container>
+        ) : (
+          <Container>
+            <Button onPress={onPress}>
+              <ButtonText>
+                {'Selecione a linha desejada'}
+              </ButtonText>
+            </Button>
+          </Container>
+        )
+      }
+    </>
+  );
 } 

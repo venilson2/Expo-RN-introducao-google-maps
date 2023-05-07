@@ -6,23 +6,25 @@ import * as Location from 'expo-location';
 import DropDownContainer from '../../components/organisms/DropDownContainer';
 import { useNavigation } from '@react-navigation/native';
 import { useCoordinatesContext } from '../../context/CoordinatesContext';
+import Coordinate from '../../interfaces/Coordinate';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { IRouting } from '../../routes/config';
 
 const GOOGLE_MAPS_API_KEY = "";
-
-interface Coordinate {
-  latitude: number;
-  longitude: number;
-}
+type MapNavigationProp = NativeStackNavigationProp<
+IRouting,
+'Map'
+>;
 
 const { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.0922;
 
 const MapScreen = () => {
-  const { coordinates, selectedValue } = useCoordinatesContext();
+  const { coordinates, selectedLine } = useCoordinatesContext();
   const [location, setLocation] = useState<Coordinate>();
   const [modalVisible, setModalVisible] = useState(false);
-  const navigation = useNavigation();
+  const navigation = useNavigation<MapNavigationProp>();
 
   async function getLocation() {
     const { status } = await Location.requestForegroundPermissionsAsync();
@@ -32,8 +34,6 @@ const MapScreen = () => {
       console.log('Permission to access location was denied');
       return;
     }
-
-    console.log(coordinates);
 
     setLocation({
       latitude: location.coords.latitude,
@@ -55,13 +55,14 @@ const MapScreen = () => {
   return (
     <View style={{ flex: 1 }}>
       <DropDownContainer 
-        selectedValue={selectedValue} 
+        selectedValue={selectedLine} 
         onPress={() => navigation.navigate('Line')}
       />
       <MapView
         provider={PROVIDER_GOOGLE}
         style={{ flex: 1 }}
         region={region!}
+        showsCompass={false}
       >
         {coordinates.length > 0 && (
           <MapViewDirections
