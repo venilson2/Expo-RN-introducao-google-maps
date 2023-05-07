@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Modal, FlatList, Image } from 'react-native';
-import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from 'react-native-maps';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, FlatList } from 'react-native';
+import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import * as Location from 'expo-location';
-// import busIcon from '';
+import ModalContainer from '../../components/organisms/ModalContainer';
+import DropDownContainer from '../../components/organisms/DropDownContainer';
+import { listCoordinates } from '../../services/CoordinatesService';
 
 const GOOGLE_MAPS_API_KEY = "";
 
 interface CoordinateResponse {
   id: number, 
   name: string,
+  status: string,
   coords: Coordinate[]
 }
 
@@ -29,45 +32,15 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
   },
-  dropdownContainer: {
-
-    marginTop: 40,
-    position: 'absolute',
-    zIndex: 1,
-    width: '90%',
-    alignSelf: 'center',
-    padding: 10,
-    borderRadius: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.10,
-    shadowRadius: 1,
-    elevation: 24,
-  },
-  dropdownText: {
-    fontSize: 16,
-    color: '#333',
-  },
-  modal: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-  modalContainer: {
-    backgroundColor: '#fff',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    padding: 10,
+  flatList: {
+    width: '100%',
+    borderRadius: 10,
+    marginTop: 20,
+    height: "100%"
   },
   listItemText: {
     fontSize: 16,
     color: '#333',
-  },
-  flatList: {
-    width: '100%',
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    marginTop: 20,
-    maxHeight: 200,
   },
   listItem: {
     flexDirection: 'row',
@@ -80,56 +53,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const dados = [
-  {
-    id: 1, 
-    name: 'Linha 1', 
-    coords: [
-      { latitude: -23.6317, longitude: -46.6965 },
-      { latitude: -23.6349, longitude: -46.6792 },
-      { latitude: -23.6072, longitude: -46.6203 },
-      { latitude: -23.7144, longitude: -46.7318 },
-      { latitude: -23.6573, longitude: -46.7023 },
-      { latitude: -23.6098, longitude: -46.6027 },
-      { latitude: -23.6878, longitude: -46.7176 },
-      { latitude: -23.6489, longitude: -46.7626 }
-    ]
-  },
-  {
-    id: 2, 
-    name: 'Linha 2', 
-    coords: [
-      { latitude: -23.8348, longitude: -46.7043},
-      { latitude: -23.7036, longitude: -46.6985},
-      { latitude: -23.6317, longitude: -46.6965 },
-      { latitude: -23.6705, longitude: -46.6561},
-      // { latitude: -23.7103, longitude: -46.7715},
-      // { latitude: -24.0487, longitude: -46.6866},
-    ]
-  },
-  {
-    id: 3, 
-    name: 'Linha 3', 
-    coords: [
-      { latitude: -23.5928, longitude: -46.6067},
-      { latitude: -23.5881, longitude: -46.6326},
-      { latitude: -23.6532, longitude: -46.7108},
-      { latitude: -23.6329, longitude: -46.7619},
-      { latitude: -23.6634, longitude: -46.7563},
-      { latitude: -23.7368, longitude: -46.7096},
-      // { latitude: -23.8348, longitude: -46.7043},
-      // { latitude: -23.6705, longitude: -46.6561},
-      // { latitude: -23.6529, longitude: -46.6419},
-    ]
-  }
-];
-
 const MapScreen = () => {
   const [coordinates, setCoordinates] = useState<Coordinate[]>([]);
   const [location, setLocation] = useState<Coordinate>();
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [path, setPath] = useState([]);
+  const data = listCoordinates();
 
   async function getLocation() {
     const { status } = await Location.requestForegroundPermissionsAsync();
@@ -173,30 +102,21 @@ const MapScreen = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={styles.dropdownContainer}>
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <View style={{ backgroundColor: 'white', padding: 10 }}>
-            <Text>{selectedValue ? selectedValue : 'Selecione a linha desejada'}</Text>
-          </View>
-        </TouchableOpacity> 
-      </View>
-      <Modal 
-        visible={modalVisible} 
-        animationType="slide"
-        style={styles.modal}
+      <DropDownContainer 
+        selectedValue={selectedValue} 
+        setModalVisible={setModalVisible} 
+      />
+      <ModalContainer 
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
       >
-        <View style={styles.modalContainer}>
-          <TouchableOpacity onPress={() => setModalVisible(false)}>
-            <Text>fechar</Text>
-          </TouchableOpacity>
-          <FlatList
+        <FlatList
           style={styles.flatList}
-          data={dados}
+          data={data}
           renderItem={renderListItem}
           keyExtractor={(item) => item.id.toString()}
         />
-        </View>
-      </Modal>
+      </ModalContainer>
       <MapView
         provider={PROVIDER_GOOGLE}
         style={{ flex: 1 }}
@@ -217,7 +137,7 @@ const MapScreen = () => {
             key={`marker-${index}`}
             coordinate={coordinate}
             title={`Marker ${index + 1}`}
-            image={require('../assets/images/bus.png')}
+            image={require('../../assets/images/bus.png')}
           />
         ))}
         {location && (
