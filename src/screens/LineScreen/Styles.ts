@@ -50,6 +50,7 @@ export const ListItemContainer = styled.TouchableOpacity`
 export const Badge = styled.View`
     background-color: green;
     border-radius: 8px;
+    width: 70px;
     padding-horizontal: 8px;
     padding-vertical: 4px;
   `;
@@ -57,4 +58,5 @@ export const Badge = styled.View`
 export const BadgeText = styled.Text`
   color: white;
   font-weight: bold;
+  text-align: center;
 `;

@@ -30,7 +30,7 @@ export default function LineScreen() {
         }}>
         <ListItem>
           <Badge>
-            <BadgeText>Entrada</BadgeText>
+            <BadgeText>{item.status}</BadgeText>
           </Badge>
           <ListItemText>{item.name}</ListItemText>
         </ListItem>

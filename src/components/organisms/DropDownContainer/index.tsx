@@ -10,8 +10,6 @@ interface DropDownContainerProps {
 
 export default function DropDownContainer({selectedValue,  onPress}: DropDownContainerProps){
 
-  const colorStatus = selectedValue!.status === 'entrada' ? theme.colors.success : theme.colors.warning;
-
   return (
     <>
       {
@@ -29,7 +27,7 @@ export default function DropDownContainer({selectedValue,  onPress}: DropDownCon
                   Clique novamente para alterar
                 </SmallText>
               </Card>
-              <Badge style={{backgroundColor: colorStatus }}>
+              <Badge style={{backgroundColor: 'red' }}>
                 <BadgeText>
                   {selectedValue.status}
                 </BadgeText>
