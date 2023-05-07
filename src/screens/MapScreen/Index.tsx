@@ -25,7 +25,7 @@ const MapScreen = () => {
   const { coordinates, selectedLine } = useCoordinatesContext();
   const [location, setLocation] = useState<Coordinate>();
   const [modalVisible, setModalVisible] = useState(false);
-  const [ coordinateSelected, setCoordinateSelected ] = useState<Coordinate>();
+  const [ coordinateSelected, setCoordinateSelected ] = useState<Coordinate | null>(null);
   const navigation = useNavigation<MapNavigationProp>();
 
   async function getLocation() {
@@ -81,8 +81,7 @@ const MapScreen = () => {
             <Marker
               key={`marker-${index}`}
               coordinate={coordinate}
-              title={`Marker ${index + 1}`}
-              image={index === 0 ? null : require('../../assets/images/bus.png')}
+              image={index === 0 ? null : require('../../assets/images/bus_pin.png')}
               onPress={() => {
                   setModalVisible(true)
                   setCoordinateSelected(coordinate) 
@@ -99,8 +98,7 @@ const MapScreen = () => {
           )}
         </MapView>
       </View>
-      <ModalContainer modalVisible={modalVisible} setModalVisible={setModalVisible}>
-      </ModalContainer>
+      <ModalContainer modalVisible={modalVisible} setModalVisible={setModalVisible} coordinate={coordinateSelected}/>
     </>
   );
 };

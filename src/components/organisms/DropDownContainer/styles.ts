@@ -25,10 +25,8 @@ export const ButtonText = styled.Text`
   color: #333;
 `;
 
-
-
 export const ButtonSelected = styled.TouchableOpacity`
-  background-color: red;
+  background-color: #106093;
   padding: 10px;
   border-radius: 10px;
   flex-direction: row;
