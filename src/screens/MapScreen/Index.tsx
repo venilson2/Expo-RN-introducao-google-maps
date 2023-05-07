@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import * as Location from 'expo-location';
-import ModalContainer from '../../components/organisms/ModalContainer';
 import DropDownContainer from '../../components/organisms/DropDownContainer';
 import { listCoordinates } from '../../services/CoordinatesService';
+import { useNavigation } from '@react-navigation/native';
 
 const GOOGLE_MAPS_API_KEY = "";
 
@@ -80,6 +80,7 @@ const MapScreen = () => {
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const data = listCoordinates();
+  const navigation = useNavigation();
 
   async function getLocation() {
     const { status } = await Location.requestForegroundPermissionsAsync();
@@ -132,7 +133,7 @@ const MapScreen = () => {
         selectedValue={selectedValue} 
         setModalVisible={setModalVisible} 
       />
-      <ModalContainer 
+      {/* <ModalContainer 
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
       >
@@ -142,7 +143,7 @@ const MapScreen = () => {
           renderItem={renderListItem}
           keyExtractor={(item) => item.id.toString()}
         />
-      </ModalContainer>
+      </ModalContainer> */}
       <MapView
         provider={PROVIDER_GOOGLE}
         style={{ flex: 1 }}

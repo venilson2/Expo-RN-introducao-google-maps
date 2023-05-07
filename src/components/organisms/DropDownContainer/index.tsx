@@ -1,12 +1,16 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, } from 'react-native';
 
 interface DropDownContainerProps {
     setModalVisible: (item: boolean) => void,
-    selectedValue: string | null
+    selectedValue: string | null,
+    onPress: () => void
 }
 
 export default function DropDownContainer({selectedValue, setModalVisible}: DropDownContainerProps){
+
+  const navigation = useNavigation();
 
     const styles = StyleSheet.create({
         dropdownContainer: {
@@ -39,7 +43,7 @@ export default function DropDownContainer({selectedValue, setModalVisible}: Drop
 
     return (
         <View style={styles.dropdownContainer}>
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <TouchableOpacity onPress={() => navigation.navigate("Line")}>
           <View style={styles.dropdownButton}>
             <Text style={styles.dropdownText} >{selectedValue ? selectedValue : 'Selecione a linha desejada'}</Text>
           </View>
