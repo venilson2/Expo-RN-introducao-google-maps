@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, Text } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import * as Location from 'expo-location';
@@ -9,6 +9,7 @@ import { useCoordinatesContext } from '../../context/CoordinatesContext';
 import Coordinate from '../../interfaces/Coordinate';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { IRouting } from '../../routes/config';
+import ModalContainer from '../../components/organisms/ModalContainer';
 
 const GOOGLE_MAPS_API_KEY = "";
 type MapNavigationProp = NativeStackNavigationProp<
@@ -24,6 +25,7 @@ const MapScreen = () => {
   const { coordinates, selectedLine } = useCoordinatesContext();
   const [location, setLocation] = useState<Coordinate>();
   const [modalVisible, setModalVisible] = useState(false);
+  const [ coordinateSelected, setCoordinateSelected ] = useState<Coordinate>();
   const navigation = useNavigation<MapNavigationProp>();
 
   async function getLocation() {
@@ -53,44 +55,53 @@ const MapScreen = () => {
   } : null;
 
   return (
-    <View style={{ flex: 1 }}>
-      <DropDownContainer 
-        selectedValue={selectedLine} 
-        onPress={() => navigation.navigate('Line')}
-      />
-      <MapView
-        provider={PROVIDER_GOOGLE}
-        style={{ flex: 1 }}
-        region={region!}
-        showsCompass={false}
-      >
-        {coordinates.length > 0 && (
-          <MapViewDirections
-            origin={coordinates[0]}
-            destination={coordinates[coordinates.length - 1]}
-            waypoints={coordinates.slice(1, -1)}
-            apikey={GOOGLE_MAPS_API_KEY}
-            strokeWidth={3}
-            strokeColor="black"
-          />
-        )}
-        {coordinates.map((coordinate, index) => (
-          <Marker
-            key={`marker-${index}`}
-            coordinate={coordinate}
-            title={`Marker ${index + 1}`}
-            image={require('../../assets/images/bus.png')}
-          />
-        ))}
-        {location && (
-          <Marker
-            coordinate={location}
-            title="Você está aqui"
-            pinColor="orange"
-          />
-        )}
-      </MapView>
-    </View>
+    <>
+      <View style={{ flex: 1 }}>
+        <DropDownContainer 
+          selectedValue={selectedLine} 
+          onPress={() => navigation.navigate('Line')}
+        />
+        <MapView
+          provider={PROVIDER_GOOGLE}
+          style={{ flex: 1 }}
+          region={region!}
+          showsCompass={false}
+        >
+          {coordinates.length > 0 && (
+            <MapViewDirections
+              origin={coordinates[0]}
+              destination={coordinates[coordinates.length - 1]}
+              waypoints={coordinates.slice(1, -1)}
+              apikey={GOOGLE_MAPS_API_KEY}
+              strokeWidth={3}
+              strokeColor="black"
+            />
+          )}
+          {coordinates.map((coordinate, index) => (
+            <Marker
+              key={`marker-${index}`}
+              coordinate={coordinate}
+              title={`Marker ${index + 1}`}
+              image={index === 0 ? null : require('../../assets/images/bus.png')}
+              onPress={() => {
+                  setModalVisible(true)
+                  setCoordinateSelected(coordinate) 
+                }
+              }
+            />
+          ))}
+          {location && (
+            <Marker
+              coordinate={location}
+              title="Você está aqui"
+              pinColor="orange"
+            />
+          )}
+        </MapView>
+      </View>
+      <ModalContainer modalVisible={modalVisible} setModalVisible={setModalVisible}>
+      </ModalContainer>
+    </>
   );
 };
 
