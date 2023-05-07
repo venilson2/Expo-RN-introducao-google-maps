@@ -13,7 +13,7 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <StatusBar
           barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
-          backgroundColor={theme.colors.secondary_600}
+          backgroundColor={theme.colors.primary_500}
         />
         <NavigationContainer>
           <AppNavigator />

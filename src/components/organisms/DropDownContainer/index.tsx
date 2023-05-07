@@ -1,6 +1,7 @@
 import React from 'react';
 import { Badge, BadgeText, Button, ButtonSelected, ButtonText, Card, Container, LineText, SmallText, TopText } from './styles';
 import CoordinateResponse from '../../../interfaces/CoordinateResponse';
+import { theme } from '../../../styles';
 
 interface DropDownContainerProps {
     selectedValue: CoordinateResponse | null,
@@ -8,6 +9,8 @@ interface DropDownContainerProps {
 }
 
 export default function DropDownContainer({selectedValue,  onPress}: DropDownContainerProps){
+
+  const colorStatus = selectedValue!.status === 'entrada' ? theme.colors.success : theme.colors.warning;
 
   return (
     <>
@@ -26,7 +29,7 @@ export default function DropDownContainer({selectedValue,  onPress}: DropDownCon
                   Clique novamente para alterar
                 </SmallText>
               </Card>
-              <Badge>
+              <Badge style={{backgroundColor: colorStatus }}>
                 <BadgeText>
                   {selectedValue.status}
                 </BadgeText>

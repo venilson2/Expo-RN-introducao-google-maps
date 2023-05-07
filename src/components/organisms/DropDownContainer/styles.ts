@@ -11,29 +11,29 @@ export const Container = styled.View`
 `;
 
 export const Button = styled.TouchableOpacity`
-  background-color: #fff;
+  background-color: color: ${({theme}) => theme.colors.neutral_300};
   padding: 10px;
   border-radius: 10px;
   justify-content: center;
   align-items: center;
   border-width: 2px;
-  border-color: #ddd;
+  border-color: ${({theme}) => theme.colors.neutral_600};
 `;
 
 export const ButtonText = styled.Text`
   font-size: 16px;
-  color: #333;
+  color: ${({theme}) => theme.colors.neutral_300};
 `;
 
 export const ButtonSelected = styled.TouchableOpacity`
-  background-color: #106093;
+  background-color: ${({theme}) => theme.colors.primary_500};
   padding: 10px;
   border-radius: 10px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   border-width: 2px;
-  border-color: #ddd;
+  border-color: ${({theme}) => theme.colors.primary_400};
 `;
 
 export const Card = styled.View`
@@ -45,31 +45,30 @@ export const Card = styled.View`
 
 export const TopText = styled.Text`
   font-size: 14px;
-  color: white;
+  color: ${({theme}) => theme.colors.neutral_100};
   margin-bottom: 4px;
 `;
 
 export const LineText = styled.Text`
   font-size: 16px;
   font-weight: bold;
-  color: white;
+  color: ${({theme}) => theme.colors.neutral_100};
   margin-bottom: 4px;
 `;
 
 export const SmallText = styled.Text`
   font-size: 10px;
-  color: white;
+  color: ${({theme}) => theme.colors.neutral_100};
 `;
 
 export const Badge = styled.View`
-    background-color: green;
     border-radius: 8px;
     padding-horizontal: 12px;
     padding-vertical: 6px;
   `;
 
 export const BadgeText = styled.Text`
-  color: white;
+  color: ${({theme}) => theme.colors.neutral_100};
   font-weight: bold;
   font-size: 16px;
 `;
